@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Trivia game </title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row" id="header">
+			<h1 class="text-center">Trivia Game</h1>
+		</div>
+		<div class="row text-center" id="timer"></div>
+		<div class="row" id="display">
+			<div class="col-xs-12 text-center" id="triviaQuestion">
+			</div>
+			<div class="col-xs-12 text-center" id="triviaChoicesContainer">
+				<div class="col-xs-3"></div>
+				<div class="col-xs-6 btn-group-vertical" id="triviaChoices"> <!-- replace these buttons dynamically using javascript  -->
+				</div>
+				<div class="col-xs-3"></div>
+
+
+			</div>
+
+		</div>
+		<div class="row" id="footer">
+			<br><br><br>
+			<div class="col-xs-3"></div>
+				<div class="col-xs-3" id="startButtonContainer">
+					<button class="btn btn-large" id="startButton">Start</button>
+				</div>
+				<div class="col-xs-3" id="resetButtonContainer">
+					<button class="btn btn-large disabled" id="resetButton">Reset</button>
+				</div>
+			<div class="col-xs-3"></div>
+		</div>
+	</div>
+	
+
+
+
+</body>
+</html>

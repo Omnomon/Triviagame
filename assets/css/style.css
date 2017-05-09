@@ -1,0 +1,8 @@
+.btn:hover {
+	border-width: 1px;
+	border-color: blue;
+}
+
+.hidden {
+	display: none;
+}
