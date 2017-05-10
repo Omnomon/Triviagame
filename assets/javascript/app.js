@@ -5,17 +5,89 @@ $(document).ready(function() {
 	var guessedRight = 0;
 	var guessedWrong = 0;
 	var intervalId; 
+	var j = 0; 
 
 	//create question object
 
-	function trivia(question, choices, rightAnswer, checker) {
+	function trivia(question, choices, answers) {
 		this.question = question
 		this.choices = choices
-		this.rightAnswer = rightAnswer
-		this.checker = function() {
-			return "placeholder"
-		}
+		this.answers = answers
 	}
+
+	// make sure to put choices before the question !! 
+	var abcd = ["A: ", "B: ", "C: ", "D: "]
+	var choices_1 = ["yes", "no", "no" ,"no"]
+	var answers_1 = ["yes", "wrong", "wrong", "wrong"]
+	var question_1 = new trivia("does this thing work", choices_1, answers_1)
+	// works! 
+
+	var choices_2 = ["no", "yes", "no" ,"no"]
+	var answers_2 = ["wrong", "yes", "wrong", "wrong"]
+	var question_2 = new trivia("does this thing switch", choices_2, answers_2)
+
+
+	//create buttons and questions dynamically grabbing from question objects with class btn btn-default guessSelected 
+	questionArray = [
+	question_1, 
+	question_2, 
+	];
+
+	var input = questionArray
+	//create grabInfo function 
+	var grabInfo = function(input) {
+		for (var i = 0; i < input.choices.length; i++) {
+			var choiceButton = $("<button>")
+				.addClass("btn btn-default guessSelected")
+				.attr("id", "button-" + i)
+				.attr("value", input.choices[i])
+				.attr("answers", input.answers[i])
+				.html(abcd[i] + input.choices[i])
+				.appendTo("#triviaChoices")
+		} 
+
+		var question = $("<div>")
+			.addClass("question")
+			.attr("value", input.question)
+			.html("<h2>" + input.question + "</h2>")
+			.appendTo("#triviaQuestion")
+	
+	}
+
+	// create checker function
+		var checker = function() {
+			console.log("click works")
+			if ($(this).attr("value") === $(this).attr("answers")) {
+				var holder = true 
+			} 
+			if (holder) {
+				guessedRight ++
+			} else {
+				guessedWrong ++
+		}
+		
+		
+		console.log("guess right count is " + guessedRight)
+		console.log("guess wrong count is " + guessedWrong)
+		$("#triviaQuestion").html("")
+		$("#triviaChoices").html("")
+		}
+
+		
+
+	//create array of questions 
+
+	grabInfo(questionArray[0])
+
+	console.log($(".guessSelected").attr("answers"))
+	console.log($(".guessSelected").attr("value"))
+	$("#button-0").click(checker)
+	$("#button-1").click(checker)
+	$("#button-2").click(checker)
+	$("#button-3").click(checker)
+
+
+
 
 	// create working countdown timer 
 	$("#timer").html("<h3>00:30</h3>")
@@ -69,48 +141,6 @@ $(document).ready(function() {
 	$("#resetButton").click(countdown.stop)
 
 
-	// make sure to put choices before the question !! 
-	var abcd = ["A: ", "B: ", "C: ", "D: "]
-	var choices_1 = ["yes", "no", "no" ,"no"]
-	var question_1 = new trivia("does this thing work", choices_1, "yes")
-	console.log(question_1)
-	console.log(question_1.choices)
-	console.log(choices_1)
-	console.log(question_1.choices[0])
-	// works! 
-
-	var choices_2 = ["no", "yes", "no," ,"no"]
-	var question_2 = new trivia("does this thing switch", choices_2, "yes")
-
-
-	//create buttons and questions dynamically grabbing from question objects with class btn btn-default guessSelected 
-	var grabInfo = function(input) {
-		for (var i = 0; i < input.choices.length; i++) {
-			var choiceButton = $("<button>")
-				.addClass("btn btn-default guessSelected")
-				.data("value", input.choices[i])
-				.html(abcd[i] + input.choices[i])
-				.appendTo("#triviaChoices")
-		} 
-
-		var question = $("<div>")
-			.addClass("question")
-			.data("value", input.question)
-			.html("<h2>" + input.question + "</h2>")
-			.appendTo("#triviaQuestion")
-	
-	}
-
-	grabInfo(question_1) // works 
-
-	//create array of questions 
-
-	questionArray = [
-	question_1, 
-	question_2, 
-	];
-
-	console.log(questionArray[0])
 
 })
 
