@@ -11,30 +11,34 @@ $(document).ready(function() {
 
 	function trivia(question, choices, answers) {
 		this.question = question
-		this.choices = choices
-		this.answers = answers
+		this.choices = choices //array
+		this.answers = answers //array 
 	}
 
-	// make sure to put choices before the question !! 
+	// make sure to put choices before the question !! -----------------------------------
 	var abcd = ["A: ", "B: ", "C: ", "D: "]
 	var choices_1 = ["yes", "no", "no" ,"no"]
 	var answers_1 = ["yes", "wrong", "wrong", "wrong"]
 	var question_1 = new trivia("does this thing work", choices_1, answers_1)
-	// works! 
 
 	var choices_2 = ["no", "yes", "no" ,"no"]
 	var answers_2 = ["wrong", "yes", "wrong", "wrong"]
 	var question_2 = new trivia("does this thing switch", choices_2, answers_2)
+
+	var choices_3 = ["no", "no", "yes" ,"no"]
+	var answers_3 = ["wrong", "wrong", "yes", "wrong"]
+	var question_3 = new trivia("why you so annoying", choices_3, answers_3)
 
 
 	//create buttons and questions dynamically grabbing from question objects with class btn btn-default guessSelected 
 	questionArray = [
 	question_1, 
 	question_2, 
+	question_3
 	];
 
 	var input = questionArray
-	//create grabInfo function 
+	//create grabInfo function ------------------------------------------------
 	var grabInfo = function(input) {
 		for (var i = 0; i < input.choices.length; i++) {
 			var choiceButton = $("<button>")
@@ -54,10 +58,10 @@ $(document).ready(function() {
 	
 	}
 
-	// create checker function
-		var checker = function() {
-			console.log("click works")
-			if ($(this).attr("value") === $(this).attr("answers")) {
+	// create checker function------------------------------
+		var checker = function(arg) {
+			console.log("checker works")
+			if ($(arg).attr("value") === $(arg).attr("answers")) {
 				var holder = true 
 			} 
 			if (holder) {
@@ -74,17 +78,45 @@ $(document).ready(function() {
 		}
 
 		
+//-----------------------------------------------
+	var currentQuestion=0;
 
-	//create array of questions 
+	$("#triviaChoices").on("click", function(event){
+		console.log($(event.target))
+		console.log($(event.target).attr("value"))
+		checker($(event.target))
+		currentQuestion++
+		if(currentQuestion < questionArray.length) {
+			grabInfo(questionArray[currentQuestion])
+		} else {
+			$("#display").html("Right answers: " + guessedRight + "<br>Wrong Answers: " + guessedWrong)
+			countdown.stop()
+		}
 
-	grabInfo(questionArray[0])
 
-	console.log($(".guessSelected").attr("answers"))
-	console.log($(".guessSelected").attr("value"))
-	$("#button-0").click(checker)
-	$("#button-1").click(checker)
-	$("#button-2").click(checker)
-	$("#button-3").click(checker)
+	})
+/*	$("#button-0").on("click", checker)
+	$("#button-1").on("click", checker)
+	$("#button-2").on("click", checker)
+	$("#button-3").on("click", checker)*/
+
+// create function that switches on button click to next question in array 
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -99,6 +131,9 @@ $(document).ready(function() {
 			intervalId = setInterval(countdown.count, 1000)
 			$("#startButton").toggleClass("disabled")
 			$("#resetButton").toggleClass("disabled")
+			grabInfo(questionArray[0])
+
+
 		},
 
 		stop: function() {
