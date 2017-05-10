@@ -15,6 +15,26 @@ $(document).ready(function() {
 		this.answers = answers //array 
 	}
 
+	//----------------steal shuffle array -----------
+	function shuffle(array) {
+	  var currentIndex = array.length, temporaryValue, randomIndex;
+
+	  // While there remain elements to shuffle...
+	  while (0 !== currentIndex) {
+
+	    // Pick a remaining element...
+	    randomIndex = Math.floor(Math.random() * currentIndex);
+	    currentIndex -= 1;
+
+	    // And swap it with the current element.
+	    temporaryValue = array[currentIndex];
+	    array[currentIndex] = array[randomIndex];
+	    array[randomIndex] = temporaryValue;
+	  }
+
+	  return array;
+	}
+
 	// make sure to put choices before the question !! -----------------------------------
 	var abcd = ["A: ", "B: ", "C: ", "D: "]
 	var choices_1 = ["yes", "no", "no" ,"no"]
@@ -29,6 +49,19 @@ $(document).ready(function() {
 	var answers_3 = ["wrong", "wrong", "yes", "wrong"]
 	var question_3 = new trivia("why you so annoying", choices_3, answers_3)
 
+	var tieChoiceAndAnswers = function(array1, array2) {
+			var createNewEntry = [];
+			var createNewArray = [];
+		for (var i = 0; i < 4; i++) {
+			createNewEntry[i] = [array1[i] , array2[i]]
+			createNewArray[i] = createNewEntry[i]
+		}
+
+		return createNewArray
+	}
+
+	var testArray = tieChoiceAndAnswers(choices_1, answers_1)
+	console.log(testArray)
 
 	//create buttons and questions dynamically grabbing from question objects with class btn btn-default guessSelected 
 	questionArray = [
@@ -36,6 +69,8 @@ $(document).ready(function() {
 	question_2, 
 	question_3
 	];
+
+	console.log(question_1[0])
 
 	var input = questionArray
 	//create grabInfo function ------------------------------------------------
@@ -132,6 +167,10 @@ $(document).ready(function() {
 			$("#startButton").toggleClass("disabled")
 			$("#resetButton").toggleClass("disabled")
 			grabInfo(questionArray[0])
+			if (countdown.time <= 0 ) {
+				countdown.stop()
+				("#display").html("Right answers: " + guessedRight + "<br>Wrong Answers: " + guessedWrong)
+			}
 
 
 		},
