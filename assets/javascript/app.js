@@ -6,6 +6,12 @@ $(document).ready(function() {
     var guessedWrong = 0;
     var intervalId;
     var j = 0;
+    var gratsArray = [];
+    var smhArray = [];
+
+    //--------hide gif 
+    $(".gif").hide()
+
 
     //create question object
 
@@ -14,7 +20,33 @@ $(document).ready(function() {
         this.choices = choices //array //array 
     }
 
-    //-----------------------------
+    //-----------------------------grab movies, put in array. 
+
+    $.ajax({
+        url: "http://api.giphy.com/v1/gifs/search?q=congratulations&limit=15&api_key=dc6zaTOxFJmzC",
+        method: "GET"
+    }).done(function(response) {
+        console.log(response.data[0].images.fixed_width.url)
+        for (var i = 0; i < 15; i++) {
+            gratsArray[i] = response.data[i].images.fixed_width.url
+        }
+        return gratsArray
+
+    })
+
+    $.ajax({
+        url: "http://api.giphy.com/v1/gifs/search?q=smh&limit=15&api_key=dc6zaTOxFJmzC",
+        method: "GET"
+    }).done(function(response) {
+        console.log(response.data[0].images.fixed_width.url)
+        for (var i = 0; i < 15; i++) {
+            smhArray[i] = response.data[i].images.fixed_width.url
+        }
+        return smhArray
+
+    })
+
+    //----------------------------
 
     var tieChoiceAndAnswers = function(array1, array2) {
         var createNewEntry = [];
@@ -83,11 +115,11 @@ $(document).ready(function() {
     var input = questionArray
         //create grabInfo function ------------------------------------------------
     var grabInfo = function(input) {
-    	var arrayShuffle = [0,1,2,3]
+        var arrayShuffle = [0, 1, 2, 3]
         var shuffleArray = shuffle(arrayShuffle)
         for (var i = 0; i < 4; i++) {
             var choiceButton = $("<button>")
-                .addClass("btn btn-default guessSelected")
+                .addClass("btn btn-default guessSelected animateLeft")
                 .attr("value", input.choices[shuffleArray[i]][0])
                 .attr("answers", input.choices[shuffleArray[i]][1])
                 .attr("id", "button_" + i)
@@ -97,33 +129,30 @@ $(document).ready(function() {
 
         }
 
-	        var question = $("<div>")
-	            .addClass("question")
-	            .attr("value", input.question)
-	            .html("<h2>" + input.question + "</h2>")
-	            .css("opacity", "0.1")
-	            .appendTo("#triviaQuestion")
+        var question = $("<div>")
+            .addClass("question animateLeft")
+            .attr("value", input.question)
+            .html("<h2>" + input.question + "</h2>")
+            .appendTo("#triviaQuestion")
 
     }
 
 
-
-
     var changeInfo = function(input) {
-    	var arrayShuffle = [0,1,2,3]
+        var arrayShuffle = [0, 1, 2, 3]
         var shuffleArray = shuffle(arrayShuffle)
         for (var i = 0; i < 4; i++) {
-            choiceChange = $("#button_"+ i )
+            choiceChange = $("#button_" + i)
+            	.blur()
                 .attr("value", input.choices[shuffleArray[i]][0])
                 .attr("answers", input.choices[shuffleArray[i]][1])
                 .html(abcd[i] + input.choices[shuffleArray[i]][0])
                 .animate({ opacity: "1.0" }, 10)
         }
 
-	        question = $(".question")
-	            .attr("value", input.question)
-	            .html("<h2>" + input.question + "</h2>")
-	            .animate({ opacity: "1.0" }, 200)
+        question = $(".question")
+            .attr("value", input.question)
+            .html("<h2>" + input.question + "</h2>")
     }
 
     // create checker function------------------------------
@@ -134,24 +163,31 @@ $(document).ready(function() {
         }
         if (holder) {
             guessedRight++
+            $(".gif").attr("src", gratsArray[Math.floor(Math.random() * 15)])
         } else {
             guessedWrong++
+            $(".gif").attr("src", smhArray[Math.floor(Math.random() * 15)])
+
         }
 
         console.log("guess right count is " + guessedRight)
         console.log("guess wrong count is " + guessedWrong)
+        console.log($(".gif").attr("src"))
     }
 
     var clearScreen = function() {
         $(".score")
-	    	.removeClass("hidden")
-	        .css("opacity", "0.1")
-	        .html("Right answers: " + guessedRight + "<br>Wrong Answers: " + guessedWrong)
-	        .appendTo("#display")
-	        .animate({ opacity: "1.0" }, 100)
-        $("#triviaChoices").addClass("hidden")
-        $("#triviaQuestion").addClass("hidden")
+            .removeClass("hidden")
+            .css("opacity", "0.1")
+            .html("Right answers: " + guessedRight + "<br>Wrong Answers: " + guessedWrong)
+            .appendTo("#display")
+            .animate({ opacity: "1.0" }, 100)
+        $("#triviaChoices")
+        	.addClass("hidden")
+        $("#triviaQuestion")
+        	.addClass("hidden")
         $("#playAgain").removeClass("hidden")
+
 
     }
 
@@ -162,27 +198,34 @@ $(document).ready(function() {
     $("#triviaChoices").on("click", function(event) {
         console.log($(event.target))
         console.log($(event.target).attr("value"))
-        checker
-            ($(event.target))
+        checker($(event.target))
         currentQuestion++
         if (currentQuestion < questionArray.length) {
-            changeInfo(questionArray[currentQuestion])
-        $(".guessSelected").animate({
-            right: "700px",
-            opacity: "0.001",
-            display: "none"
-        }, 200);
-        $(".guessSelected").animate({
-            left: "700px",
-        }, 1);
-        $(".guessSelected").animate({
-            display: "block",
-            left: "0px",
-            opacity: "1.0"
-        }, 200);
+            $(".animateLeft").animate({
+                right: "+=700px",
+                opacity: "0.001",
+                display: "none"
+            }, 200);
+            $(".animateLeft").animate({
+                    right: "-=1400px",
+                }, 1);
+            $(".gif").show(600)
+            countdown.pause()
+            setTimeout(function() {
+            	changeInfo(questionArray[currentQuestion])
+            	countdown.start()
+                $(".gif").hide()
+                $(".gif").attr("src", "#")
+                $(".animateLeft").animate({
+                    display: "block",
+                    right: "+=700px",
+                    opacity: "1.0"
+                }, 200);
+            }, 3000)
         } else {
             countdown.stop()
             clearScreen()
+            $(".gif").show()
         }
 
     })
@@ -218,6 +261,13 @@ $(document).ready(function() {
 
         },
 
+        pause: function() {
+        	console.log("pause button works")
+        	clearInterval(intervalId)
+            $("#timer").html("<h3>00:30</h3>")
+            countdown.time = 30
+        },
+
         count: function() {
             countdown.time--
                 $("#timer")
@@ -225,14 +275,18 @@ $(document).ready(function() {
             console.log(countdown.time)
             if (countdown.time === 0) {
                 countdown.stop()
-               $(".score")
-		    	.removeClass("hidden")
-		        .css("opacity", "0.1")
-		        .html("Right answers: " + guessedRight + "<br>Wrong Answers: " + guessedWrong)
-		        .appendTo("#display")
-		        .animate({ opacity: "1.0" }, 100)
-	        $("#triviaChoices").addClass("hidden")
-	        $("#triviaQuestion").addClass("hidden")
+                $(".score")
+                    .removeClass("hidden")
+                    .css("opacity", "0.1")
+                    .html("Right answers: " + guessedRight + "<br>Wrong Answers: " + guessedWrong)
+                    .appendTo("#display")
+                    .animate({ opacity: "1.0" }, 100)
+                $("#triviaChoices").addClass("hidden")
+                $("#triviaQuestion").addClass("hidden")
+                $(".gif")
+                    .attr("src", smhArray[Math.floor(Math.random() * 15)])
+                    .show()
+
             }
 
         },
@@ -267,8 +321,8 @@ $(document).ready(function() {
 
     })
 
-    $("#playAgain").click(function(){
-    	console.log("#playAgain button works")
+    $("#playAgain").click(function() {
+        console.log("#playAgain button works")
         $("#triviaQuestion").removeClass("hidden")
         $("#triviaChoices").removeClass("hidden")
         $(".score").html(" ")
@@ -277,6 +331,8 @@ $(document).ready(function() {
         guessedRight = 0;
         currentQuestion = 0;
         $("#playAgain").addClass("hidden")
+        $(".gif").hide()
+        countdown.start()
     })
 
 

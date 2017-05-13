@@ -1,13 +1,14 @@
-.btn:hover {
+.btn:hover{
 	border-width: 1px;
 	border-color: blue;
 }
+
 
 .hidden {
 	display: none;
 }
 
-.guessSelected {
+.animateLeft {
 	position: relative;
 }
 
