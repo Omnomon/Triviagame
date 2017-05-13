@@ -27,9 +27,10 @@ $(document).ready(function() {
         url: "https://api.giphy.com/v1/gifs/search?q=congratulations&limit=15&api_key=dc6zaTOxFJmzC",
         method: "GET"
     }).done(function(response) {
-        console.log(response.data[0].images.original)
+        console.log(response.data[0].images.fixed_width.url)
         for (var i = 0; i < 15; i++) {
             gratsArray[i] = response.data[i].images.fixed_width.url
+            gratsArray[i] = gratsArray[i].replace(/http/g,"https")
         }
         return gratsArray
 
@@ -39,9 +40,10 @@ $(document).ready(function() {
         url: "https://api.giphy.com/v1/gifs/search?q=smh&limit=15&api_key=dc6zaTOxFJmzC",
         method: "GET"
     }).done(function(response) {
-        console.log(response.data[0].images.original)
+        console.log(response.data[0].images.fixed_width.url)
         for (var i = 0; i < 15; i++) {
             smhArray[i] = response.data[i].images.fixed_width.url
+            smhArray[i] = smhArray[i].replace(/http/g,"https")
         }
         return smhArray
 
