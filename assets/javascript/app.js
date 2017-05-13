@@ -30,9 +30,11 @@ $(document).ready(function() {
         console.log(response.data[0].images.fixed_width.url)
         for (var i = 0; i < 15; i++) {
             gratsArray[i] = response.data[i].images.fixed_width.url
-            gratsArray[i] = gratsArray[i].replace(/https/g,"http")
+/*            gratsArray[i] = gratsArray[i].replace(/https/g,"http")*/
+
         }
         return gratsArray
+        console.log(gratsArray[0])
 
     })
 
@@ -43,9 +45,10 @@ $(document).ready(function() {
         console.log(response.data[0].images.fixed_width.url)
         for (var i = 0; i < 15; i++) {
             smhArray[i] = response.data[i].images.fixed_width.url
-            smhArray[i] = smhArray[i].replace(/https/g,"http")
+/*            smhArray[i] = smhArray[i].replace(/https/g,"http")*/
         }
         return smhArray
+        console.log(smhArray[0])
 
     })
 
