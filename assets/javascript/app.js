@@ -107,6 +107,8 @@ $(document).ready(function() {
     }
 
 
+
+
     var changeInfo = function(input) {
     	var arrayShuffle = [0,1,2,3]
         var shuffleArray = shuffle(arrayShuffle)
