@@ -83,14 +83,15 @@ $(document).ready(function() {
     var input = questionArray
         //create grabInfo function ------------------------------------------------
     var grabInfo = function(input) {
+    	var arrayShuffle = [0,1,2,3]
+        var shuffleArray = shuffle(arrayShuffle)
         for (var i = 0; i < 4; i++) {
-            /*			var shuffleArray = shuffle(input.choices)*/
             var choiceButton = $("<button>")
                 .addClass("btn btn-default guessSelected")
-                .attr("value", input.choices[i][0])
-                .attr("answers", input.choices[i][1])
+                .attr("value", input.choices[shuffleArray[i]][0])
+                .attr("answers", input.choices[shuffleArray[i]][1])
                 .attr("id", "button_" + i)
-                .html(abcd[i] + input.choices[i][0])
+                .html(abcd[i] + input.choices[shuffleArray[i]][0])
                 .css("opacity", "0.1")
                 .appendTo("#triviaChoices")
 
@@ -107,16 +108,17 @@ $(document).ready(function() {
 
 
     var changeInfo = function(input) {
+    	var arrayShuffle = [0,1,2,3]
+        var shuffleArray = shuffle(arrayShuffle)
         for (var i = 0; i < 4; i++) {
-            /*			var shuffleArray = shuffle(input.choices)*/
-            var choiceChange = $("#button_"+ i )
-                .attr("value", input.choices[i][0])
-                .attr("answers", input.choices[i][1])
-                .html(abcd[i] + input.choices[i][0])
+            choiceChange = $("#button_"+ i )
+                .attr("value", input.choices[shuffleArray[i]][0])
+                .attr("answers", input.choices[shuffleArray[i]][1])
+                .html(abcd[i] + input.choices[shuffleArray[i]][0])
                 .animate({ opacity: "1.0" }, 10)
         }
 
-	        var question = $(".question")
+	        question = $(".question")
 	            .attr("value", input.question)
 	            .html("<h2>" + input.question + "</h2>")
 	            .animate({ opacity: "1.0" }, 200)
