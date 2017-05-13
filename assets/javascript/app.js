@@ -24,7 +24,7 @@ $(document).ready(function() {
     //-----------------------------grab movies, put in array. 
 
     $.ajax({
-        url: "http://api.giphy.com/v1/gifs/search?q=congratulations&limit=15&api_key=dc6zaTOxFJmzC",
+        url: "https://api.giphy.com/v1/gifs/search?q=congratulations&limit=15&api_key=dc6zaTOxFJmzC",
         method: "GET"
     }).done(function(response) {
         console.log(response.data[0].images.original)
@@ -36,7 +36,7 @@ $(document).ready(function() {
     })
 
     $.ajax({
-        url: "http://api.giphy.com/v1/gifs/search?q=smh&limit=15&api_key=dc6zaTOxFJmzC",
+        url: "https://api.giphy.com/v1/gifs/search?q=smh&limit=15&api_key=dc6zaTOxFJmzC",
         method: "GET"
     }).done(function(response) {
         console.log(response.data[0].images.original)
