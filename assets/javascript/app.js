@@ -10,8 +10,7 @@ $(document).ready(function() {
     var smhArray = [];
 
     //--------hide gif 
-    $(".gif").hide()
-
+    $(".gif").hide().css({"background-color":"transparent", "padding":"0px"})
 
     //create question object
 
@@ -119,6 +118,20 @@ $(document).ready(function() {
     var choices_10 = tieChoiceAndAnswers(options_10, answers_10)
     var question_10 = new trivia("Are you going to give me an A on this homework assignment?", choices_10, "Yes")
 
+     //create buttons and questions dynamically grabbing from question objects with class btn btn-default guessSelected 
+    questionArray = [
+        question_1,
+        question_2,
+        question_3,
+        question_4,
+        question_5,
+        question_6,
+        question_7,
+        question_8,
+        question_9,
+        question_10
+    ];
+
 
     //----------------steal shuffle array from google -----------
     function shuffle(array) {
@@ -142,21 +155,6 @@ $(document).ready(function() {
 
         return array;
     }
-
-
-    //create buttons and questions dynamically grabbing from question objects with class btn btn-default guessSelected 
-    questionArray = [
-        question_1,
-        question_2,
-        question_3,
-        question_4,
-        question_5,
-        question_6,
-        question_7,
-        question_8,
-        question_9,
-        question_10
-    ];
 
 
     var input = questionArray
