@@ -3,7 +3,6 @@
 	border-color: blue;
 }
 
-
 .hidden {
 	display: none;
 }
@@ -14,10 +13,14 @@
 
 #startButtonContainer {
 	position: relative;
-	left: 60px;
+	left: 65px;
 }
 
 #playAgain {
 	position:relative;
-	right: 25px;
+}
+
+body {
+	background-color: #f0f0f0;
+	background-image: url("../images/backgroundimage.jpg");
 }
