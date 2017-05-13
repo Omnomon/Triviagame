@@ -30,7 +30,7 @@ $(document).ready(function() {
         console.log(response.data[0].images.fixed_width.url)
         for (var i = 0; i < 15; i++) {
             gratsArray[i] = response.data[i].images.fixed_width.url
-            gratsArray[i] = gratsArray[i].replace(/http/g,"https")
+            gratsArray[i] = gratsArray[i].replace(/https/g,"http")
         }
         return gratsArray
 
@@ -43,7 +43,7 @@ $(document).ready(function() {
         console.log(response.data[0].images.fixed_width.url)
         for (var i = 0; i < 15; i++) {
             smhArray[i] = response.data[i].images.fixed_width.url
-            smhArray[i] = smhArray[i].replace(/http/g,"https")
+            smhArray[i] = smhArray[i].replace(/https/g,"http")
         }
         return smhArray
 
