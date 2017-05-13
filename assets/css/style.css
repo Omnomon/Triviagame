@@ -11,3 +11,12 @@
 	position: relative;
 }
 
+#startButtonContainer {
+	position: relative;
+	left: 60px;
+}
+
+#playAgain {
+	position:relative;
+	right: 25px;
+}

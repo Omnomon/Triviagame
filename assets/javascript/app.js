@@ -273,9 +273,6 @@ $(document).ready(function() {
         guessedRight = 0;
         currentQuestion = 0;
         $("#playAgain").addClass("hidden")
-
-
-
     })
 
 
